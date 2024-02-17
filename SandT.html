@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>pi-relax</title>
+<style>
+/* Your existing styles here... */
+
+.cursor {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+}
+</style>
+<style>
+
+
+.shine{
+    background-color: white;
+    border-radius: 50%;transform: translateY(-20vh);
+  
+}
+.shiner {
+margin: 0 auto;
+width: 250px; }
+
+
+.item {
+position: relative;
+width: 100vw;
+height: 30vh;
+transition: .2s ease-out; 
+overflow: hidden;
+border-radius: 20px;
+z-index: 9;
+margin-left:-18vw; 
+padding:4vw;
+margin-top:1vh
+
+}
+.boox {
+pointer-events: none;
+width: 100%;
+height: 200px;
+transition: .2s ease-out; 
+border-radius:15px;
+margin-top:10vh;
+width:55%; height:50%;
+background-color: rgba(95, 95, 95, 0.742);
+position:absolute;
+z-index: 999;
+backdrop-filter: blur(1px);
+overflow: hidden;
+
+}
+.shiner [class*="layer"] {
+position: absolute;
+left: 0;
+top: 0;
+right: 0;
+bottom: 0;
+border-radius: 10px; }
+
+
+.wrapper{
+background-color: rgb(255, 255, 255);width:100vw;height:100vh;overflow: hidden;
+}
+
+.border_me{
+border-top:2px solid rgba(254, 250, 250, 0.776);
+border-right: 2px solid rgba(224, 221, 221, 0.774);
+border-bottom: 2px solid rgba(129, 129, 129, 0.58);
+border-left: 2px solid rgba(106, 106, 106, 0.537);
+}
+
+
+</style>
+</head>
+<body style="position:fixed">
+<!-- Your existing HTML content here... -->
+<div class="wrapper">
+<div class="shiner" style="height:120vh;">
+
+
+
+<div class="item spot-shadow border_me" >
+
+<div class="boox spot-shadow  border_me">
+
+<div class="boox  spot-shadow  border_me" style="margin-top:1vh;width:55%; height:50%;"></div>
+</div>
+
+<div class="boox  spot-shadow  border_me" style="width:15%; height:20%; margin-left:20vw"></div>
+
+<div class="boox  spot-shadow" style="width:15%; height:20%; margin-left:40vw"></div>
+
+<div class="boox  spot-shadow" style="width:15%; height:20%; margin-left:60vw"></div>
+
+
+<div class="boox  spot-shadow" style="width:15%; height:20%;  margin-left:65vw;margin-top: 40vh;">
+
+
+
+</div>
+</div>
+
+</div>
+</div>
+<div class="cursor" id="cursor"></div>
+
+<!-- Your existing scripts here... -->
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="dist/js/jquery.hover3d.js" ></script>
+<script>
+// JavaScript for cursor behavior
+(function () {
+    var cursor = document.getElementById('cursor');
+    var isDragging = false;
+    var mouseX, mouseY;
+
+    // Function to handle mouse move event
+    function handleMouseMove(event) {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        updateCursor();
+    }
+
+    // Function to handle touch move event
+    function handleTouchMove(event) {
+        event.preventDefault();
+        var touch = event.touches[0];
+        mouseX = touch.clientX;
+        mouseY = touch.clientY;
+        updateCursor();
+    }
+
+    // Function to update the position of the cursor
+    function updateCursor() {
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+        if (isDragging) {
+            dispatchMouseEvent();
+        }
+    }
+
+    // Function to dispatch a new mouse move event
+    function dispatchMouseEvent() {
+        var event = new MouseEvent('mousemove', {
+            'view': window,
+            'bubbles': true,
+            'cancelable': true,
+            'clientX': mouseX,
+            'clientY': mouseY
+        });
+        document.dispatchEvent(event);
+    }
+
+    // Add event listeners to the document
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('touchmove', handleTouchMove);
+
+    // Add event listeners to the cursor
+    cursor.addEventListener('mousedown', function(event) {
+        isDragging = true;
+        handleMouseMove(event);
+    });
+
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+    });
+
+    // Add touch start event listener to initiate dragging on touch devices
+    cursor.addEventListener('touchstart', function(event) {
+        event.preventDefault();
+        isDragging = true;
+        handleTouchMove(event);
+    });
+
+    // Add touch end event listener to stop dragging on touch devices
+    document.addEventListener('touchend', function(event) {
+        event.preventDefault();
+        isDragging = false;
+    });
+})();
+
+// Your existing jQuery scripts here...
+$(document).ready(function(){
+    $(".project").hover3d({
+        selector: ".project__wrapper"
+    });
+
+    $(".shiner").hover3d({
+        selector: ".item",
+        shine: true,
+        sensitivity: 100,
+    });
+    $(".shiner").hover3d({
+        selector: ".boox",
+        shine: true,
+        sensitivity: 100,
+    });
+});
+</script>
+<script>
+$(document).ready(function(){
+$(".project").hover3d({
+selector: ".project__wrapper"
+});
+
+$(".shiner").hover3d({
+selector: ".item",
+shine: true,
+sensitivity: 100,
+});
+$(".shiner").hover3d({
+selector: ".boox",
+shine: true,
+sensitivity: 100,
+});
+});
+
+</script>
+</body>
+</html>
